@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket Client</title>
+    <link rel="icon" href="./images/client.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Poetsen+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+</head>
+<body>
+    <main>
+        <section id="head-sec" class="hide">
+            <div id="sid">SID:</div>
+        </section>
+        <section id="content-sec" class="hide">
+            <div>
+                <div id="count-hint">COUNT = 0</div>
+                <button id="pop-btn">COUNT ++</button>
+            </div>    
+        </section>
+        <section id="footer-sec">
+            <div>Powered By Aaron.Wang</div>
+        </section>
+
+        <div id="disconnected-hint">Can not connect to server !</div>
+    </main>
+</body>
+<script src="../dist/index.bundle.js"></script>
+</html>
