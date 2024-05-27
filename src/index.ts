@@ -18,21 +18,21 @@ class CountClient
 	private connectedUrl: string;
 	private ws: WebSocket;
 	
-	constructor(url: string, port: number)
+	constructor()
 	{
-		this.connectedUrl = url + ':' + port.toString();
+		this.connectedUrl = 'ws://' + process.env.SIP + ':' + process.env.PORT;
+		
 		this.ws = new WebSocket(this.connectedUrl);
 
 		this.ws.onopen = (event: Event): void => this.openHandler(event);
 		this.ws.onmessage = (event: MessageEvent): void => this.messageHandler(event);
+		this.ws.onerror = (event: Event): void => this.errorHandler(event);
 
 		this.count = 0;
 	}
 
 	protected openHandler(event: Event): void
 	{
-		console.log(`[Client Connected] url: ${this.connectedUrl}`); 
-
 		let elementArray: Array<HTMLElement | null> = [];
 
 		const disconnectedHint: HTMLElement | null = document.getElementById('disconnected-hint');
@@ -79,6 +79,14 @@ class CountClient
 		}
 	}
 
+	protected errorHandler(event: Event): void
+	{
+		console.log(`[Connected Failed]`);
+
+		const disconnectedHint: HTMLElement | null = document.getElementById('disconnected-hint');
+		this.updateElementValue(disconnectedHint, 'Can not connect to server !');
+	}
+
 	private addElementsClass(elementArray: Array<HTMLElement | null>, className: string): void
 	{
 		elementArray.forEach((element: HTMLElement | null) => {
@@ -115,7 +123,7 @@ class CountClient
 }
 
 document.addEventListener('DOMContentLoaded', (e: Event): void => {
-	const client = new CountClient('ws://localhost', 5050);
+	const client = new CountClient();
 
 	const countBtn: HTMLElement | null = document.getElementById('pop-btn');
 	if (countBtn) {
